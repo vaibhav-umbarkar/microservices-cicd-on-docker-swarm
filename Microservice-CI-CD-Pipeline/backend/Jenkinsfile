@@ -1,0 +1,72 @@
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+
+    environment {
+        IMAGE_NAME = 'vaibhavu8485/backend'
+        REGISTRY = 'https://index.docker.io/v1/'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Backend Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${IMAGE_NAME}:latest ."
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh """
+                        docker rm -f backend-test || true
+                        docker run -d \
+                            --name backend-test \
+                            -p 3000:3000 \
+                            ${IMAGE_NAME}:latest
+                    """
+
+                    sh """
+                        for i in {1..30}
+                        do
+                            curl -f http://localhost:3000/data && break
+                            sleep 2
+                        done
+                    """
+
+                    sh "python3 test_backend.py"
+                }
+            }
+        }
+
+        stage('Push Backend Artifact') {
+            steps {
+                script {
+                    docker.withRegistry(REGISTRY, 'dockerhub-creds') {
+                    
+                        sh "docker push ${IMAGE_NAME}:latest"
+
+                        if (env.BRANCH_NAME == 'dev') {
+                            sh "docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:dev"
+                            sh "docker push ${IMAGE_NAME}:dev"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            sh "docker rm -f backend-test || true"
+        }
+    }
+}

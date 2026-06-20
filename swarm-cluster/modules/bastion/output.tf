@@ -1,0 +1,4 @@
+# Bastion Host Public IP
+output "bastion_host_ip" {
+    value = aws_instance.bastion_host.public_ip
+}

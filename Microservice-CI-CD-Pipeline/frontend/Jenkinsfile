@@ -1,0 +1,66 @@
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+
+    environment {
+        IMAGE_NAME = 'vaibhavu8485/frontend'
+        IMAGE_TAG = 'latest'
+        REGISTRY = 'https://index.docker.io/v1/'
+        SWARM_MANAGER = 'ubuntu@11.0.3.162'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Frontend Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                }
+            }
+        }
+
+        stage('Push Frontend Artifact') {
+            steps {
+                script {
+                    docker.withRegistry(REGISTRY, 'dockerhub-creds') {
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+
+        stage('Test SSH') {
+            steps {
+                sshagent(['swarm-master']) {
+                    sh '''
+                        ssh \
+                        -o StrictHostKeyChecking=no \
+                        -o BatchMode=yes \
+                        ubuntu@11.0.3.162 \
+                        "hostname"
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy to Swarm') {
+            steps {
+                sshagent(['swarm-master']) {
+                    sh """ 
+                        ssh -o StrictHostKeyChecking=no ${SWARM_MANAGER} '
+                            docker service update \
+                            --image ${IMAGE_NAME}:${IMAGE_TAG} \
+                            app_frontend
+                        '
+                    """
+                }
+            }
+        }
+    }
+}
