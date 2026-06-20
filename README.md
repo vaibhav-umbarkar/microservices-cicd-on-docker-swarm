@@ -219,34 +219,6 @@ Application source code and Jenkins pipeline definitions used for automated CI/C
 
 ---
 
-## 🚀 Deployment
-
-### Initialize Docker Swarm
-
-```bash
-docker swarm init
-```
-
-### Deploy Application Stack
-
-```bash
-docker stack deploy -c docker-stack.yml microservices
-```
-
-### Verify Services
-
-```bash
-docker service ls
-```
-
-### Verify Stack
-
-```bash
-docker stack ls
-```
-
----
-
 ## 📚 Learning Outcomes
 
 This project helps demonstrate:
