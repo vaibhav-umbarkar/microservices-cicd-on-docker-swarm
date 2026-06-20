@@ -4,10 +4,10 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'vaibhavu8485/frontend'
+        IMAGE_NAME = '<dockerhub-username>/frontend'
         IMAGE_TAG = 'latest'
         REGISTRY = 'https://index.docker.io/v1/'
-        SWARM_MANAGER = 'ubuntu@11.0.3.162'
+        SWARM_MANAGER = 'ubuntu@<swarm-manager-private-ip>'
     }
 
     stages {
@@ -42,7 +42,7 @@ pipeline {
                         ssh \
                         -o StrictHostKeyChecking=no \
                         -o BatchMode=yes \
-                        ubuntu@11.0.3.162 \
+                        ubuntu@<swarm-manager-ip> \
                         "hostname"
                     '''
                 }

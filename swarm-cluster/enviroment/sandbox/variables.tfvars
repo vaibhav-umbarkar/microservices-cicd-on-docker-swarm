@@ -28,16 +28,16 @@ private_subnet = {
     }
 }
 
-bastion_ami = "ami-01a00762f46d584a1"
+bastion_ami = "<bastion-host-ami>"
 bastion_instance_type = "t2.micro"
-bastion_key_name = "bastion-host-swarm-cluster"
+bastion_key_name = "<bastion-host-pem-key-name>"
 
-bucket_name = "vaibhav8485-sandbox"
+bucket_name = "<s3-bucket-name>"
 
-manager_ami = "ami-0c4490ec57c03397c"
+manager_ami = "<swarm-manager-ami>"
 manager_instance_type = "t2.small"
-manager_key_name = "swarm-master"
+manager_key_name = "<swarm-manager-pem-key-name>"
 
-worker_ami = "ami-0c4490ec57c03397c"
+worker_ami = "<swarm-worker-ami>"
 worker_instance_type = "t2.small"
-worker_key_name = "swarm-worker"
+worker_key_name = "<swarm-worker-pem-key-name>"

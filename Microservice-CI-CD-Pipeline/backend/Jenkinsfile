@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'vaibhavu8485/backend'
+        IMAGE_NAME = '<dockerhub-username>/backend'
         REGISTRY = 'https://index.docker.io/v1/'
     }
 

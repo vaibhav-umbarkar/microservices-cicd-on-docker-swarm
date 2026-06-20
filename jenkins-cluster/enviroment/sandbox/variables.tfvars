@@ -9,10 +9,10 @@ availability_zones = [
     "ap-south-1b"
 ]
 
-bastion_ami="ami-01a00762f46d584a1"
+bastion_ami="<bastion-host-ami>"
 bastion_instance_type = "t2.micro"
-bastion_key_name="bastion-host-jenkins-cluster"
+bastion_key_name="<bastion-host-jenkins-cluster-pem-key-name>"
 
-jenkins_controller_ami = "ami-06a64e5bf749a6618"
+jenkins_controller_ami = "<jenkins-controller-ami>"
 jenkins_controller_instance_type = "t2.small"
-jenkins_controller_key_name = "jenkins-master"
+jenkins_controller_key_name = "<jenkins-controller-pem-key-name>"

@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        SWARM_MANAGER = "ubuntu@11.0.3.162"
+        SWARM_MANAGER = "ubuntu@<private-ip>"
     }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
                 curl -s http://169.254.169.254/latest/meta-data/local-ipv4
 
                 echo "===== TEST SSH ====="
-                nc -zv 11.0.3.162 22
+                nc -zv <swarm-manager-private-ip> 22
                 '''
             }
         }
