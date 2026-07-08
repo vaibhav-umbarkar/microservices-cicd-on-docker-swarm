@@ -44,7 +44,6 @@ This platform is designed to:
 
 - Frontend Microservice
 - Backend Microservice
-- Database Service
 
 #### Registry & Source Control
 
