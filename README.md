@@ -1,4 +1,4 @@
-# Microservices CI/CD Platform on Docker Swarm using Jenkins Cluster
+# Microservices CI/CD on Docker Swarm using Jenkins Cluster
 
 A production-style DevOps platform that demonstrates automated CI/CD pipelines for microservices deployment using a Jenkins cluster and a Docker Swarm cluster running on AWS.
 
