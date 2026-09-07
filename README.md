@@ -248,8 +248,8 @@ This project helps demonstrate:
 
 ---
 
-## 👤 Author
+## 👤 Dev
 
 **Vaibhav Umbarkar**
 
-DevOps Engineer | AWS | Jenkins | Docker | Docker Swarm | CI/CD
+DevOps | AWS | Jenkins | Docker | Docker Swarm | CI/CD
